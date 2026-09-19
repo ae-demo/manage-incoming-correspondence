@@ -36,43 +36,43 @@ correct workload, and can review the full history of any item.
 ## User Stories
 
 1. As a Registry Officer, I want to log incoming correspondence received
- physically, attaching a scanned copy, so that it is captured in the
- system from the moment it arrives.
+physically, attaching a scanned copy, so that it is captured in the
+system from the moment it arrives.
 2. As a Registry Officer, I want incoming correspondence sent by email to be
- captured into the system automatically, so that email correspondence is
- tracked the same way as physical mail.
+captured into the system automatically, so that email correspondence is
+tracked the same way as physical mail.
 3. As a Registry Officer, I want to review each newly logged item and assign
- it to the department responsible for handling it, so that it reaches the
- right part of the organization.
+it to the department responsible for handling it, so that it reaches the
+right part of the organization.
 4. As a Registry Officer, I want to reassign an item to a different
- department if I routed it incorrectly, so that misrouted correspondence
- is corrected quickly.
+department if I routed it incorrectly, so that misrouted correspondence
+is corrected quickly.
 5. As a Department Officer, I want to see all correspondence assigned to my
- department, so that I know what is waiting for action.
+department, so that I know what is waiting for action.
 6. As a Department Officer, I want to update the status of an item (e.g., in
- progress) as I work on it, so that its progress is visible to others.
+progress) as I work on it, so that its progress is visible to others.
 7. As a Department Officer, I want to record the response issued for a
- correspondence item, including an attached response document, so that
- there is a record of how it was resolved.
+correspondence item, including an attached response document, so that
+there is a record of how it was resolved.
 8. As a Department Officer, I want to close a correspondence item once it
- has been responded to, so that it is marked resolved and removed from
- the active queue.
+has been responded to, so that it is marked resolved and removed from
+the active queue.
 9. As a Supervisor, I want to see a dashboard of all correspondence across
- departments with their current status, so that I can monitor overall
- workload and progress.
+departments with their current status, so that I can monitor overall
+workload and progress.
 10. As a Supervisor, I want to see items that are overdue against their
- expected turnaround, so that I can escalate or intervene.
+expected turnaround, so that I can escalate or intervene.
 11. As a Supervisor, I want to reassign correspondence between departments
- or officers, so that workload can be rebalanced or corrected.
+or officers, so that workload can be rebalanced or corrected.
 12. As a Registry Officer or Supervisor, I want to search and filter
- correspondence by sender, department, status, or date, so that I can
- find any item quickly.
+correspondence by sender, department, status, or date, so that I can
+find any item quickly.
 13. As a Registry Officer, Department Officer, or Supervisor, I want to see
- the full movement history of a correspondence item — who it was routed
- to, when, and what actions were taken — so that its handling is
- auditable end to end.
+the full movement history of a correspondence item — who it was routed
+to, when, and what actions were taken — so that its handling is
+auditable end to end.
 14. As a Department Officer, I want to be notified when a new item is
- assigned to me, so that I don't miss incoming work.
+assigned to me, so that I don't miss incoming work.
 
 ## Product Decisions
 
@@ -118,12 +118,12 @@ Officer recording and closing it.
 ## Open Questions
 
 1. Which email account/mailbox should the system monitor for incoming
- correspondence?
+correspondence?
 2. Is there a mandated SLA/turnaround policy (e.g., a fixed number of days)
- that responses must meet, or should default turnaround thresholds simply
- be configurable per category?
+that responses must meet, or should default turnaround thresholds simply
+be configurable per category?
 3. Should assignment and overdue notifications be delivered by email, SMS,
- or in-app only?
+or in-app only?
 4. Does the organization already have a fixed list of departments/units, or
- should the app let a Supervisor manage that list?
+should the app let a Supervisor manage that list?
 
