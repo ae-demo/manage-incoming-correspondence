@@ -1,0 +1,4 @@
+apiVersion = "agentic-engineer/v1"
+name = "manage-incoming-correspondence"
+createdAt = "2026-09-19T12:09:25Z"
+idea = "Application to manage incoming correspondence to a govt org and distributing it to the right part of the org and tracking its movement until the correspondence is responded to and closed off"
