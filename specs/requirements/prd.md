@@ -122,10 +122,10 @@ department at a time.
 based on a configurable default turnaround period, which may vary by
 category; an item past its due date is flagged as overdue for the
 Supervisor to see and act on.
-- **Public SLA dashboard**: a public, unauthenticated dashboard shows each
-department's SLA/turnaround performance (e.g., share of items resolved
-within target, by category). It is aggregate-only — it never exposes
-individual correspondence content, sender details, or the status of a
+- **Public SLA dashboard**: a public, unauthenticated dashboard shows each  
+department's SLA/turnaround performance (e.g., share of items resolved  
+within target, by category). It is aggregate-only — it never exposes  
+individual correspondence content, sender details, or the status of a  
 specific item. *assumed*
 - **Closure requires a recorded response**: an item can only be marked
 closed once a response (text note and/or attached document) has been
