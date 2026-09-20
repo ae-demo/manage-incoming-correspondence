@@ -109,15 +109,15 @@ presigned-URL upload/download pattern.
 the Admin role (create, rename, deactivate) rather than being a fixed,
 pre-set list; correspondence is still assigned to exactly one department
 at a time.
-- **Department deactivation**: a deactivated department is removed from
-future routing/assignment options, but correspondence already assigned to
-it keeps that historical reference. *assumed*
+- **Department deactivation**: a deactivated department is removed from  
+future routing/assignment options, but correspondence already assigned to  
+it keeps that historical reference.
 - **User onboarding**: Admin assigns an existing Thunder-authenticated
 identity to a department and one of the three operational roles
 (Registry Officer, Department Officer, Supervisor) within this app;
 Admin does not create identities in Thunder itself — account
 provisioning stays with Thunder. A user holds membership in exactly one
-department at a time. *assumed*
+department at a time.
 - **Turnaround &amp; escalation**: each correspondence item receives a due date
 based on a configurable default turnaround period, which may vary by
 category; an item past its due date is flagged as overdue for the
