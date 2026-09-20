@@ -129,7 +129,7 @@ individual correspondence content, sender details, or the status of a
 specific item. *assumed*
 - **Closure requires a recorded response**: an item can only be marked
 closed once a response (text note and/or attached document) has been
-recorded against it. *assumed*
+recorded against it.
 - **Assignment notifications**: a Department Officer is notified when an
 item is newly assigned to them, and a Supervisor is notified when an item
 becomes overdue, delivered on all three channels — email, SMS, and
