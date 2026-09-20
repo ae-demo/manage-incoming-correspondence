@@ -11,9 +11,9 @@
         { "handle": "read-all", "description": "Every correspondence item" },
         { "handle": "route", "description": "Assign a newly logged item to a department" },
         { "handle": "reassign", "description": "Reassign an item to a different department" },
-        { "handle": "update-status", "description": "Update an item's status" },
-        { "handle": "respond", "description": "Record a response for an item" },
-        { "handle": "close", "description": "Close an item once responded" }
+        { "handle": "update-status", "description": "Update the status of an item in the caller's department" },
+        { "handle": "respond", "description": "Record a response for an item in the caller's department" },
+        { "handle": "close", "description": "Close an item in the caller's department once responded" }
       ]
     },
     {

@@ -20,9 +20,9 @@ components:
             correspondence:read-all: Every correspondence item
             correspondence:route: Assign a newly logged item to a department
             correspondence:reassign: Reassign an item to a different department
-            correspondence:update-status: Update an item's status
-            correspondence:respond: Record a response for an item
-            correspondence:close: Close an item once responded
+            correspondence:update-status: Update the status of an item in the caller's department
+            correspondence:respond: Record a response for an item in the caller's department
+            correspondence:close: Close an item in the caller's department once responded
             departments:read: List departments/units
             departments:manage: Create, rename, deactivate departments and their mailbox
             users:read: List onboarded users
@@ -199,7 +199,7 @@ paths:
   /correspondence/{correspondenceId}:
     get:
       operationId: getCorrespondence
-      summary: A correspondence item's detail
+      summary: Every correspondence item's detail
       security:
         - oauth2: [correspondence:read-all]
       parameters:
@@ -220,9 +220,55 @@ paths:
   /correspondence/{correspondenceId}/movements:
     get:
       operationId: listCorrespondenceMovements
-      summary: Full movement history for an item
+      summary: Full movement history for an item, every item
       security:
         - oauth2: [correspondence:read-all]
+      parameters:
+        - name: correspondenceId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Movement history, oldest first
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [count, data]
+                properties:
+                  count: { type: integer }
+                  data: { type: array, items: { $ref: '#/components/schemas/Movement' } }
+        '404':
+          description: Not found
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /me/department/correspondence/{correspondenceId}:
+    get:
+      operationId: getMyDepartmentCorrespondence
+      summary: The caller's department's correspondence item detail
+      security:
+        - oauth2: [correspondence:read]
+      parameters:
+        - name: correspondenceId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: The item
+          content: { application/json: { schema: { $ref: '#/components/schemas/Correspondence' } } }
+        '404':
+          description: Not found
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+        '401':
+          description: Not signed in
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /me/department/correspondence/{correspondenceId}/movements:
+    get:
+      operationId: listMyDepartmentCorrespondenceMovements
+      summary: Full movement history for an item in the caller's department
+      security:
+        - oauth2: [correspondence:read]
       parameters:
         - name: correspondenceId
           in: path
@@ -302,10 +348,10 @@ paths:
         '404':
           description: Not found
           content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
-  /correspondence/{correspondenceId}/status:
+  /me/department/correspondence/{correspondenceId}/status:
     patch:
-      operationId: updateCorrespondenceStatus
-      summary: Update an item's status
+      operationId: updateMyDepartmentCorrespondenceStatus
+      summary: Update the status of an item in the caller's department
       security:
         - oauth2: [correspondence:update-status]
       parameters:
@@ -329,10 +375,10 @@ paths:
         '404':
           description: Not found
           content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
-  /correspondence/{correspondenceId}/response:
+  /me/department/correspondence/{correspondenceId}/response:
     post:
-      operationId: recordCorrespondenceResponse
-      summary: Record the response issued for an item
+      operationId: recordMyDepartmentCorrespondenceResponse
+      summary: Record the response issued for an item in the caller's department
       security:
         - oauth2: [correspondence:respond]
       parameters:
@@ -359,10 +405,10 @@ paths:
         '404':
           description: Not found
           content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
-  /correspondence/{correspondenceId}/close:
+  /me/department/correspondence/{correspondenceId}/close:
     post:
-      operationId: closeCorrespondence
-      summary: Close an item once a response has been recorded
+      operationId: closeMyDepartmentCorrespondence
+      summary: Close an item in the caller's department once a response has been recorded
       security:
         - oauth2: [correspondence:close]
       parameters:
@@ -383,9 +429,7 @@ paths:
   /correspondence/attachment-upload-url:
     post:
       operationId: createAttachmentUploadUrl
-      summary: Get a presigned URL to upload a scanned document or response attachment
-      security:
-        - oauth2: [correspondence:log]
+      summary: Get a presigned URL to upload a scanned document or response attachment (any signed-in user)
       requestBody:
         required: true
         content:
