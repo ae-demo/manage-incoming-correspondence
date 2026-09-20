@@ -129,7 +129,7 @@ of a specific item. For each department it shows the average, best
 (shortest), and worst (longest) response time, computed over a trailing
 3-month window of items closed in that period; an item still open after
 more than 3 months counts as the department's worst-case figure, shown
-as "3+ months" rather than a specific duration. *assumed*
+as "3+ months" rather than a specific duration.
 - **Closure requires a recorded response**: an item can only be marked
 closed once a response (text note and/or attached document) has been
 recorded against it.
@@ -139,7 +139,7 @@ becomes overdue, delivered on all three channels — email, SMS, and
 in-app — via the organization's registered `email-service` and
 `sms-service`. SMS is sent to the phone number on the user's Thunder
 profile attributes; a user with no phone number on file simply does not
-receive the SMS leg. *assumed*
+receive the SMS leg.
 - **Email ingestion**: incoming email correspondence is captured
 automatically from one or more mailboxes that the Admin configures —
 either a single organization-wide default mailbox or a separate mailbox
