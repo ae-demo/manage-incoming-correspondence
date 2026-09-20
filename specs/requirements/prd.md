@@ -32,6 +32,13 @@ it once resolved.
 - **Supervisor** — oversees correspondence across all departments: monitors
 a dashboard of status and overdue items, reassigns items to rebalance or
 correct workload, and can review the full history of any item.
+- **Admin** — manages the organization's department/unit directory (create,
+rename, deactivate) and onboards users into those departments, assigning
+each the app role (Registry Officer, Department Officer, or Supervisor)
+they hold.
+- **Public Viewer** — an unauthenticated visitor who can view the public
+SLA-performance dashboard showing each department's turnaround
+compliance, with no access to individual correspondence records.
 
 ## User Stories
 
@@ -73,6 +80,14 @@ to, when, and what actions were taken — so that its handling is
 auditable end to end.
 14. As a Department Officer, I want to be notified when a new item is
 assigned to me, so that I don't miss incoming work.
+15. As an Admin, I want to create, rename, and deactivate departments/units,
+so that the routing list reflects the organization's real structure.
+16. As an Admin, I want to onboard a user into a department and assign them
+a role (Registry Officer, Department Officer, or Supervisor), so that
+they can access the correspondence relevant to their responsibilities.
+17. As a Public Viewer, I want to see a public dashboard of each
+department's SLA performance against its turnaround targets, so that
+the organization's responsiveness is transparent.
 
 ## Product Decisions
 
@@ -86,20 +101,38 @@ attachment) or by automatic capture of incoming email.
 - **File storage**: scanned documents and response attachments are stored
 via the organization's registered S3 file storage, following its
 presigned-URL upload/download pattern.
-- **Organizational structure**: the app maintains a flat list of
-departments/units that an item can be routed to; correspondence is
-assigned to exactly one department at a time. *assumed*
+- **Organizational structure**: the app's department/unit list is managed by
+the Admin role (create, rename, deactivate) rather than being a fixed,
+pre-set list; correspondence is still assigned to exactly one department
+at a time.
+- **Department deactivation**: a deactivated department is removed from
+future routing/assignment options, but correspondence already assigned to
+it keeps that historical reference. *assumed*
+- **User onboarding**: Admin assigns an existing Thunder-authenticated
+identity to a department and one of the three operational roles
+(Registry Officer, Department Officer, Supervisor) within this app;
+Admin does not create identities in Thunder itself — account
+provisioning stays with Thunder. A user holds membership in exactly one
+department at a time. *assumed*
 - **Turnaround &amp; escalation**: each correspondence item receives a due date
-based on a configurable default turnaround period (which may vary by
-category); an item past its due date is flagged as overdue for the
-Supervisor to see and act on. *assumed*
+based on a configurable default turnaround period, which may vary by
+category; an item past its due date is flagged as overdue for the
+Supervisor to see and act on.
+- **Public SLA dashboard**: a public, unauthenticated dashboard shows each
+department's SLA/turnaround performance (e.g., share of items resolved
+within target, by category). It is aggregate-only — it never exposes
+individual correspondence content, sender details, or the status of a
+specific item. *assumed*
 - **Closure requires a recorded response**: an item can only be marked
 closed once a response (text note and/or attached document) has been
 recorded against it. *assumed*
 - **Assignment notifications**: a Department Officer is notified when an
 item is newly assigned to them, and a Supervisor is notified when an item
-becomes overdue. The delivery channel (email, SMS, in-app) is not yet
-decided — see Open Questions.
+becomes overdue, delivered on all three channels — email, SMS, and
+in-app — via the organization's registered `email-service` and
+`sms-service`. SMS is sent to the phone number on the user's Thunder
+profile attributes; a user with no phone number on file simply does not
+receive the SMS leg. *assumed*
 - **Email ingestion**: incoming email correspondence is captured
 automatically. The specific mailbox/provider to monitor is not yet
 decided — see Open Questions.
@@ -107,7 +140,9 @@ decided — see Open Questions.
 ## Out of Scope
 
 - A public-facing portal for external senders (citizens, other agencies) to
-check the status of their correspondence.
+check the status of their correspondence. (The public SLA dashboard is
+aggregate performance data only and does not let anyone look up an
+individual item.)
 - Outbound correspondence unrelated to responding to a tracked incoming item
 (e.g., general outgoing mail campaigns or bulk notices).
 - Automated OCR or data-extraction from scanned physical documents — a
@@ -119,11 +154,4 @@ Officer recording and closing it.
 
 1. Which email account/mailbox should the system monitor for incoming
 correspondence?
-2. Is there a mandated SLA/turnaround policy (e.g., a fixed number of days)
-that responses must meet, or should default turnaround thresholds simply
-be configurable per category?
-3. Should assignment and overdue notifications be delivered by email, SMS,
-or in-app only?
-4. Does the organization already have a fixed list of departments/units, or
-should the app let a Supervisor manage that list?
 
