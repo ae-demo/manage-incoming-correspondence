@@ -1,0 +1,17 @@
+{
+  "name": "correspondence-webapp",
+  "type": "web-application",
+  "version": "0.1.0",
+  "language": "TypeScript",
+  "buildpack": "docker",
+  "appPath": "correspondence-webapp",
+  "entrypoint": "deployment/web-application",
+  "exposure": "internet",
+  "dependencies": [
+    { "kind": "component", "name": "correspondence-api" },
+    { "kind": "platform-resource", "name": "correspondence-auth", "resourceType": "thunder-app" }
+  ],
+  "description": "The internal workspace for Registry Officers, Department Officers, Supervisors, and Admins: logging and routing correspondence, working assigned items, the supervisor dashboard, and department/user administration. Signs in through Thunder; does not expose anything to unauthenticated visitors.",
+  "stories": [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18],
+  "skillsPinned": ["wireframes", "react-webapp", "oxygen-ui-design-system", "thunder-authentication"]
+}

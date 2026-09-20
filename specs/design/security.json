@@ -1,0 +1,81 @@
+{
+  "version": 3,
+  "permissions": [
+    {
+      "resource": "correspondence",
+      "component": "correspondence-api",
+      "description": "Incoming correspondence items and their handling",
+      "actions": [
+        { "handle": "log", "description": "Log a new correspondence item (physical or auto-captured)" },
+        { "handle": "read", "description": "The caller's department's correspondence" },
+        { "handle": "read-all", "description": "Every correspondence item" },
+        { "handle": "route", "description": "Assign a newly logged item to a department" },
+        { "handle": "reassign", "description": "Reassign an item to a different department" },
+        { "handle": "update-status", "description": "Update an item's status" },
+        { "handle": "respond", "description": "Record a response for an item" },
+        { "handle": "close", "description": "Close an item once responded" }
+      ]
+    },
+    {
+      "resource": "departments",
+      "component": "correspondence-api",
+      "description": "The organization's department/unit directory",
+      "actions": [
+        { "handle": "read", "description": "List departments/units" },
+        { "handle": "manage", "description": "Create, rename, deactivate departments, and configure their intake mailbox" }
+      ]
+    },
+    {
+      "resource": "users",
+      "component": "correspondence-api",
+      "description": "User onboarding into departments and roles",
+      "actions": [
+        { "handle": "read", "description": "List onboarded users and their department/role" },
+        { "handle": "onboard", "description": "Assign a user to a department and role" }
+      ]
+    }
+  ],
+  "groups": [
+    { "name": "RegistryOfficers", "description": "Log and route incoming correspondence" },
+    { "name": "DepartmentOfficers", "description": "Handle correspondence assigned to their department" },
+    { "name": "Supervisors", "description": "Oversee correspondence across all departments" },
+    { "name": "CorrespondenceAdmins", "description": "Manage departments and onboard users" }
+  ],
+  "roles": [
+    {
+      "name": "RegistryOfficer",
+      "description": "Logs incoming correspondence and routes it to the responsible department.",
+      "stories": [1, 3, 4, 12, 13],
+      "grants": ["correspondence:log", "correspondence:read-all", "correspondence:route", "correspondence:reassign", "departments:read"],
+      "assignTo": ["RegistryOfficers"]
+    },
+    {
+      "name": "DepartmentOfficer",
+      "description": "Works, responds to, and closes correspondence assigned to their department.",
+      "stories": [5, 6, 7, 8, 13, 14],
+      "grants": ["correspondence:read", "correspondence:update-status", "correspondence:respond", "correspondence:close", "departments:read"],
+      "assignTo": ["DepartmentOfficers"]
+    },
+    {
+      "name": "Supervisor",
+      "description": "Monitors correspondence across departments and reassigns to rebalance workload.",
+      "stories": [9, 10, 11, 12, 13],
+      "grants": ["correspondence:read-all", "correspondence:reassign", "departments:read"],
+      "assignTo": ["Supervisors"]
+    },
+    {
+      "name": "Admin",
+      "description": "Manages the department directory, its intake mailboxes, and onboards users.",
+      "stories": [15, 16, 18],
+      "grants": ["departments:read", "departments:manage", "users:read", "users:onboard"],
+      "assignTo": ["CorrespondenceAdmins"]
+    }
+  ],
+  "testUsers": [
+    { "username": "test-registry-officer", "roles": ["RegistryOfficer"] },
+    { "username": "test-department-officer", "roles": ["DepartmentOfficer"] },
+    { "username": "test-department-officer-2", "roles": ["DepartmentOfficer"] },
+    { "username": "test-supervisor", "roles": ["Supervisor"] },
+    { "username": "test-admin", "roles": ["Admin"] }
+  ]
+}

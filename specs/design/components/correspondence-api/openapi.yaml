@@ -1,0 +1,566 @@
+openapi: 3.0.3
+info:
+  title: Correspondence API
+  version: 0.1.0
+servers:
+  - url: /
+security:
+  - oauth2: []
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth2/authorize
+          tokenUrl: /oauth2/token
+          scopes:
+            correspondence:log: Log a new correspondence item
+            correspondence:read: The caller's department's correspondence
+            correspondence:read-all: Every correspondence item
+            correspondence:route: Assign a newly logged item to a department
+            correspondence:reassign: Reassign an item to a different department
+            correspondence:update-status: Update an item's status
+            correspondence:respond: Record a response for an item
+            correspondence:close: Close an item once responded
+            departments:read: List departments/units
+            departments:manage: Create, rename, deactivate departments and their mailbox
+            users:read: List onboarded users
+            users:onboard: Assign a user to a department and role
+  schemas:
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code: { type: integer, description: HTTP or application error code }
+        message: { type: string, description: short human-readable label }
+        description: { type: string, description: detailed explanation }
+        moreInfo: { type: string, description: URI to documentation }
+    Department:
+      type: object
+      required: [id, name, status]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        status: { type: string, enum: [active, deactivated] }
+        mailboxConfig: { type: string, nullable: true, description: opaque config for this department's intake mailbox }
+        defaultTurnaroundDays: { type: integer }
+    Correspondence:
+      type: object
+      required: [id, source, status, receivedDate]
+      properties:
+        id: { type: string }
+        source: { type: string, enum: [physical, email] }
+        senderName: { type: string }
+        category: { type: string }
+        status: { type: string, enum: [new, routed, in-progress, responded, closed] }
+        departmentId: { type: string, nullable: true }
+        receivedDate: { type: string, format: date }
+        dueDate: { type: string, format: date, nullable: true }
+        overdue: { type: boolean }
+        scannedDocumentUrl: { type: string, nullable: true }
+    CorrespondenceCreate:
+      type: object
+      required: [senderName, category, scannedDocumentUrl]
+      properties:
+        senderName: { type: string }
+        category: { type: string }
+        scannedDocumentUrl: { type: string }
+    Movement:
+      type: object
+      required: [id, correspondenceId, action, occurredAt]
+      properties:
+        id: { type: string }
+        correspondenceId: { type: string }
+        fromDepartmentId: { type: string, nullable: true }
+        toDepartmentId: { type: string, nullable: true }
+        action: { type: string }
+        actorUserId: { type: string }
+        occurredAt: { type: string, format: date-time }
+    Response:
+      type: object
+      required: [correspondenceId]
+      properties:
+        correspondenceId: { type: string }
+        note: { type: string, nullable: true }
+        attachmentUrl: { type: string, nullable: true }
+        recordedAt: { type: string, format: date-time }
+    UserOnboarding:
+      type: object
+      required: [id, userId, departmentId, role]
+      properties:
+        id: { type: string }
+        userId: { type: string }
+        departmentId: { type: string }
+        role: { type: string, enum: [RegistryOfficer, DepartmentOfficer, Supervisor] }
+    DepartmentSlaPerformance:
+      type: object
+      required: [departmentId, departmentName, averageDays, bestDays, worstLabel]
+      properties:
+        departmentId: { type: string }
+        departmentName: { type: string }
+        averageDays: { type: number }
+        bestDays: { type: number }
+        worstLabel: { type: string, description: "a number of days, or '3+ months' when an item has been open past the 3-month window" }
+paths:
+  /correspondence:
+    get:
+      operationId: listCorrespondence
+      summary: Every correspondence item, filterable by sender/department/status/date
+      security:
+        - oauth2: [correspondence:read-all]
+      parameters:
+        - name: limit
+          in: query
+          schema: { type: integer, default: 20, maximum: 100 }
+        - name: offset
+          in: query
+          schema: { type: integer, default: 0 }
+        - name: sender
+          in: query
+          schema: { type: string }
+        - name: departmentId
+          in: query
+          schema: { type: string }
+        - name: status
+          in: query
+          schema: { type: string }
+        - name: overdue
+          in: query
+          schema: { type: boolean }
+      responses:
+        '200':
+          description: A page of correspondence
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [count, data]
+                properties:
+                  count: { type: integer }
+                  next: { type: string, nullable: true }
+                  previous: { type: string, nullable: true }
+                  data: { type: array, items: { $ref: '#/components/schemas/Correspondence' } }
+        '401':
+          description: Not signed in
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+    post:
+      operationId: logCorrespondence
+      summary: Log a new correspondence item (physical intake)
+      security:
+        - oauth2: [correspondence:log]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CorrespondenceCreate' }
+      responses:
+        '201':
+          description: Logged
+          content: { application/json: { schema: { $ref: '#/components/schemas/Correspondence' } } }
+        '400':
+          description: Invalid input
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+        '401':
+          description: Not signed in
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /me/department/correspondence:
+    get:
+      operationId: listMyDepartmentCorrespondence
+      summary: The caller's department's correspondence
+      security:
+        - oauth2: [correspondence:read]
+      parameters:
+        - name: limit
+          in: query
+          schema: { type: integer, default: 20, maximum: 100 }
+        - name: offset
+          in: query
+          schema: { type: integer, default: 0 }
+        - name: status
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: A page of the caller's department's correspondence
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [count, data]
+                properties:
+                  count: { type: integer }
+                  next: { type: string, nullable: true }
+                  previous: { type: string, nullable: true }
+                  data: { type: array, items: { $ref: '#/components/schemas/Correspondence' } }
+        '401':
+          description: Not signed in
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /correspondence/{correspondenceId}:
+    get:
+      operationId: getCorrespondence
+      summary: A correspondence item's detail
+      security:
+        - oauth2: [correspondence:read-all]
+      parameters:
+        - name: correspondenceId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: The item
+          content: { application/json: { schema: { $ref: '#/components/schemas/Correspondence' } } }
+        '404':
+          description: Not found
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+        '401':
+          description: Not signed in
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /correspondence/{correspondenceId}/movements:
+    get:
+      operationId: listCorrespondenceMovements
+      summary: Full movement history for an item
+      security:
+        - oauth2: [correspondence:read-all]
+      parameters:
+        - name: correspondenceId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Movement history, oldest first
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [count, data]
+                properties:
+                  count: { type: integer }
+                  data: { type: array, items: { $ref: '#/components/schemas/Movement' } }
+        '404':
+          description: Not found
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /correspondence/{correspondenceId}/route:
+    post:
+      operationId: routeCorrespondence
+      summary: Assign a newly logged item to a department
+      security:
+        - oauth2: [correspondence:route]
+      parameters:
+        - name: correspondenceId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [departmentId]
+              properties:
+                departmentId: { type: string }
+      responses:
+        '200':
+          description: Routed
+          content: { application/json: { schema: { $ref: '#/components/schemas/Correspondence' } } }
+        '400':
+          description: Invalid department
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+        '404':
+          description: Not found
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /correspondence/{correspondenceId}/reassign:
+    post:
+      operationId: reassignCorrespondence
+      summary: Reassign an item to a different department
+      security:
+        - oauth2: [correspondence:reassign]
+      parameters:
+        - name: correspondenceId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [departmentId]
+              properties:
+                departmentId: { type: string }
+      responses:
+        '200':
+          description: Reassigned
+          content: { application/json: { schema: { $ref: '#/components/schemas/Correspondence' } } }
+        '400':
+          description: Invalid department
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+        '404':
+          description: Not found
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /correspondence/{correspondenceId}/status:
+    patch:
+      operationId: updateCorrespondenceStatus
+      summary: Update an item's status
+      security:
+        - oauth2: [correspondence:update-status]
+      parameters:
+        - name: correspondenceId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status: { type: string }
+      responses:
+        '200':
+          description: Status updated
+          content: { application/json: { schema: { $ref: '#/components/schemas/Correspondence' } } }
+        '404':
+          description: Not found
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /correspondence/{correspondenceId}/response:
+    post:
+      operationId: recordCorrespondenceResponse
+      summary: Record the response issued for an item
+      security:
+        - oauth2: [correspondence:respond]
+      parameters:
+        - name: correspondenceId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                note: { type: string }
+                attachmentUrl: { type: string }
+      responses:
+        '201':
+          description: Response recorded
+          content: { application/json: { schema: { $ref: '#/components/schemas/Response' } } }
+        '400':
+          description: Neither note nor attachment supplied
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+        '404':
+          description: Not found
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /correspondence/{correspondenceId}/close:
+    post:
+      operationId: closeCorrespondence
+      summary: Close an item once a response has been recorded
+      security:
+        - oauth2: [correspondence:close]
+      parameters:
+        - name: correspondenceId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Closed
+          content: { application/json: { schema: { $ref: '#/components/schemas/Correspondence' } } }
+        '400':
+          description: No response recorded yet
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+        '404':
+          description: Not found
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /correspondence/attachment-upload-url:
+    post:
+      operationId: createAttachmentUploadUrl
+      summary: Get a presigned URL to upload a scanned document or response attachment
+      security:
+        - oauth2: [correspondence:log]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [fileName]
+              properties:
+                fileName: { type: string }
+      responses:
+        '201':
+          description: Presigned upload URL
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [uploadUrl, fileUrl]
+                properties:
+                  uploadUrl: { type: string }
+                  fileUrl: { type: string }
+        '400':
+          description: Invalid file name
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /departments:
+    get:
+      operationId: listDepartments
+      summary: List departments/units
+      security:
+        - oauth2: [departments:read]
+      parameters:
+        - name: limit
+          in: query
+          schema: { type: integer, default: 20, maximum: 100 }
+        - name: offset
+          in: query
+          schema: { type: integer, default: 0 }
+      responses:
+        '200':
+          description: A page of departments
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [count, data]
+                properties:
+                  count: { type: integer }
+                  data: { type: array, items: { $ref: '#/components/schemas/Department' } }
+    post:
+      operationId: createDepartment
+      summary: Create a department
+      security:
+        - oauth2: [departments:manage]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+                defaultTurnaroundDays: { type: integer }
+      responses:
+        '201':
+          description: Created
+          content: { application/json: { schema: { $ref: '#/components/schemas/Department' } } }
+        '400':
+          description: Invalid input
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /departments/{departmentId}:
+    patch:
+      operationId: updateDepartment
+      summary: Rename a department or update its mailbox config / turnaround
+      security:
+        - oauth2: [departments:manage]
+      parameters:
+        - name: departmentId
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                mailboxConfig: { type: string }
+                defaultTurnaroundDays: { type: integer }
+      responses:
+        '200':
+          description: Updated
+          content: { application/json: { schema: { $ref: '#/components/schemas/Department' } } }
+        '404':
+          description: Not found
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /departments/{departmentId}/deactivate:
+    post:
+      operationId: deactivateDepartment
+      summary: Deactivate a department (removed from future routing, kept on past items)
+      security:
+        - oauth2: [departments:manage]
+      parameters:
+        - name: departmentId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Deactivated
+          content: { application/json: { schema: { $ref: '#/components/schemas/Department' } } }
+        '404':
+          description: Not found
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /users:
+    get:
+      operationId: listOnboardedUsers
+      summary: List onboarded users and their department/role
+      security:
+        - oauth2: [users:read]
+      parameters:
+        - name: limit
+          in: query
+          schema: { type: integer, default: 20, maximum: 100 }
+        - name: offset
+          in: query
+          schema: { type: integer, default: 0 }
+      responses:
+        '200':
+          description: A page of onboarded users
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [count, data]
+                properties:
+                  count: { type: integer }
+                  data: { type: array, items: { $ref: '#/components/schemas/UserOnboarding' } }
+  /users/onboard:
+    post:
+      operationId: onboardUser
+      summary: Assign a user to a department and role
+      security:
+        - oauth2: [users:onboard]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [userId, departmentId, role]
+              properties:
+                userId: { type: string }
+                departmentId: { type: string }
+                role: { type: string, enum: [RegistryOfficer, DepartmentOfficer, Supervisor] }
+      responses:
+        '201':
+          description: Onboarded
+          content: { application/json: { schema: { $ref: '#/components/schemas/UserOnboarding' } } }
+        '400':
+          description: Invalid department or role
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /public/departments/sla-performance:
+    get:
+      operationId: listPublicDepartmentSlaPerformance
+      summary: Aggregate SLA performance per department over the trailing 3 months (public, no correspondence detail)
+      security: []
+      responses:
+        '200':
+          description: Per-department SLA performance
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data: { type: array, items: { $ref: '#/components/schemas/DepartmentSlaPerformance' } }

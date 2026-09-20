@@ -1,0 +1,13 @@
+{
+  "name": "email-intake",
+  "resource": {
+    "name": "email-intake",
+    "description": "Provider-agnostic inbound mailbox capture: retrieves incoming email correspondence from a mailbox an Admin configures, either one organization-wide default or a separate mailbox per department."
+  },
+  "suggestions": [
+    { "name": "Gmail API", "description": "Google Workspace mailbox; polling or push notifications via the Gmail API with OAuth." },
+    { "name": "Microsoft Graph (Outlook/Microsoft 365)", "description": "Mailbox access via Microsoft Graph, with OAuth and webhook subscriptions for new mail." },
+    { "name": "Generic IMAP", "description": "Direct IMAP polling against any mailbox provider — no vendor-specific API, works with most hosted email." },
+    { "name": "SendGrid Inbound Parse", "description": "A dedicated inbound-email address is parsed and POSTed to the app as a webhook, avoiding mailbox polling entirely." }
+  ]
+}

@@ -1,0 +1,27 @@
+title Manage Incoming Correspondence
+
+component correspondence-webapp as "Correspondence Workspace" web-application
+component public-sla-dashboard as "Public SLA Dashboard" web-application
+component correspondence-api as "Correspondence API" service
+component correspondence-db as "Correspondence Database" database
+
+east correspondence-auth as "Thunder Auth" identity-server
+south aws-s3 as "S3 File Storage" service
+south email-service as "Email Service" service
+south sms-service as "SMS Service" service
+south email-intake as "Email Intake Provider" service
+
+north -> correspondence-webapp
+north -> public-sla-dashboard
+
+correspondence-webapp -> correspondence-api
+correspondence-webapp -> correspondence-auth
+
+public-sla-dashboard -> correspondence-api
+
+correspondence-api -> correspondence-auth
+correspondence-api -> correspondence-db
+correspondence-api -> aws-s3
+correspondence-api -> email-service
+correspondence-api -> sms-service
+correspondence-api -> email-intake
