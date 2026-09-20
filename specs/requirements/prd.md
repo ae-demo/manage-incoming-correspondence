@@ -88,6 +88,10 @@ they can access the correspondence relevant to their responsibilities.
 17. As a Public Viewer, I want to see a public dashboard of each
 department's SLA performance against its turnaround targets, so that
 the organization's responsiveness is transparent.
+18. As an Admin, I want to configure the mailbox that feeds email intake —
+either one organization-wide default or a separate mailbox per
+department — so that incoming email correspondence lands in the system
+regardless of which team's address received it.
 
 ## Product Decisions
 
@@ -134,8 +138,12 @@ in-app — via the organization's registered `email-service` and
 profile attributes; a user with no phone number on file simply does not
 receive the SMS leg. *assumed*
 - **Email ingestion**: incoming email correspondence is captured
-automatically. The specific mailbox/provider to monitor is not yet
-decided — see Open Questions.
+automatically from one or more mailboxes that the Admin configures —
+either a single organization-wide default mailbox or a separate mailbox
+per department. No single mail provider is assumed; the mailbox
+configuration stays provider-agnostic so it can point at whichever
+external email service (e.g., Gmail or another provider) the
+organization actually uses, potentially a different one per department.
 
 ## Out of Scope
 
@@ -152,6 +160,6 @@ Officer recording and closing it.
 
 ## Open Questions
 
-1. Which email account/mailbox should the system monitor for incoming
-correspondence?
+None outstanding — email intake mailbox configuration was settled above
+(Admin-configured, provider-agnostic, optionally one per department).
 
