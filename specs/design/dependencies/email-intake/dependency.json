@@ -2,12 +2,26 @@
   "name": "email-intake",
   "resource": {
     "name": "email-intake",
-    "description": "Provider-agnostic inbound mailbox capture: retrieves incoming email correspondence from a mailbox an Admin configures, either one organization-wide default or a separate mailbox per department."
+    "description": "Inbound mailbox capture: retrieves incoming email correspondence from a Gmail mailbox an Admin configures, either one organization-wide default or a separate mailbox per department. A different provider may be adopted later — the department's mailbox address stays app data either way.",
+    "provider": "Gmail API",
+    "config": [
+      {
+        "key": "GMAIL_SERVICE_ACCOUNT_JSON",
+        "secret": true,
+        "description": "Google service-account JSON key with domain-wide delegation enabled in the Workspace admin console, used to impersonate each configured mailbox when polling for new mail."
+      },
+      {
+        "key": "GMAIL_WORKSPACE_DOMAIN",
+        "description": "The Google Workspace domain the service account is authorized to impersonate accounts within, e.g. example.gov."
+      }
+    ],
+    "contract": {
+      "type": "openapi",
+      "path": "openapi.yaml",
+      "origin": "derived"
+    }
   },
-  "suggestions": [
-    { "name": "Gmail API", "description": "Google Workspace mailbox; polling or push notifications via the Gmail API with OAuth." },
-    { "name": "Microsoft Graph (Outlook/Microsoft 365)", "description": "Mailbox access via Microsoft Graph, with OAuth and webhook subscriptions for new mail." },
-    { "name": "Generic IMAP", "description": "Direct IMAP polling against any mailbox provider — no vendor-specific API, works with most hosted email." },
-    { "name": "SendGrid Inbound Parse", "description": "A dedicated inbound-email address is parsed and POSTed to the app as a webhook, avoiding mailbox polling entirely." }
-  ]
+  "provenance": {
+    "sourceUrl": "https://developers.google.com/workspace/gmail/api/reference/rest/v1/users.messages"
+  }
 }

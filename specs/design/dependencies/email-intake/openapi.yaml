@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: Gmail API (messages — inbound intake subset)
+  description: The subset of the Gmail API used to poll a configured mailbox for new mail and fetch each message's content.
+  version: v1
+servers:
+  - url: https://gmail.googleapis.com/gmail/v1
+security:
+  - oauth2: []
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/gmail.readonly: Read mailbox messages
+  schemas:
+    MessageListItem:
+      type: object
+      required: [id, threadId]
+      properties:
+        id: { type: string }
+        threadId: { type: string }
+    MessageList:
+      type: object
+      properties:
+        messages: { type: array, items: { $ref: '#/components/schemas/MessageListItem' } }
+        nextPageToken: { type: string, nullable: true }
+        resultSizeEstimate: { type: integer }
+    MessagePartHeader:
+      type: object
+      properties:
+        name: { type: string }
+        value: { type: string }
+    Message:
+      type: object
+      required: [id, threadId]
+      properties:
+        id: { type: string }
+        threadId: { type: string }
+        snippet: { type: string }
+        internalDate: { type: string, description: epoch millis as a string }
+        payload:
+          type: object
+          properties:
+            headers: { type: array, items: { $ref: '#/components/schemas/MessagePartHeader' } }
+            mimeType: { type: string }
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code: { type: integer }
+        message: { type: string }
+paths:
+  /users/{userId}/messages:
+    get:
+      operationId: listMessages
+      summary: List message ids in the impersonated mailbox, newest first
+      x-aep-source: https://developers.google.com/workspace/gmail/api/reference/rest/v1/users.messages/list
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema: { type: string }
+          description: The mailbox address to impersonate, or "me"
+        - name: q
+          in: query
+          schema: { type: string }
+          description: Gmail search query, e.g. is:unread
+        - name: pageToken
+          in: query
+          schema: { type: string }
+        - name: maxResults
+          in: query
+          schema: { type: integer, default: 20, maximum: 100 }
+      responses:
+        '200':
+          description: A page of message ids
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MessageList' }
+        '401':
+          description: Not authorized
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }
+  /users/{userId}/messages/{id}:
+    get:
+      operationId: getMessage
+      summary: Fetch a single message's headers, snippet and body metadata
+      x-aep-source: https://developers.google.com/workspace/gmail/api/reference/rest/v1/users.messages/get
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema: { type: string }
+          description: The mailbox address to impersonate, or "me"
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+        - name: format
+          in: query
+          schema: { type: string, enum: [full, metadata, minimal, raw], default: full }
+      responses:
+        '200':
+          description: The message
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Message' }
+        '404':
+          description: Not found
+          content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } }

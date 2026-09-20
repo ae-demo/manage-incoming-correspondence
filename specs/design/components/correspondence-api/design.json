@@ -13,7 +13,7 @@
     { "kind": "external", "name": "aws-s3", "description": "Generates presigned URLs for scanned copies and response attachments; files never pass through this service." },
     { "kind": "external", "name": "email-service", "description": "Sends assignment and overdue-alert emails." },
     { "kind": "external", "name": "sms-service", "description": "Sends assignment and overdue-alert SMS to the phone number on the user's Thunder profile." },
-    { "kind": "external", "name": "email-intake", "description": "Retrieves incoming email correspondence from each configured mailbox and logs it automatically." }
+    { "kind": "external", "name": "email-intake", "description": "Polls each department's (or the organization default) Gmail mailbox via domain-wide-delegated service-account access and logs new mail as correspondence automatically." }
   ],
   "description": "The single backend for correspondence tracking: intake (manual and email), routing, status updates, responses, closure, department/mailbox management, user onboarding, notifications, and the aggregate public SLA-performance data. Owns the correspondence, department, movement, response and notification records. Does not render any UI and does not itself hold mailbox credentials in the browser.",
   "stories": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
