@@ -25,6 +25,16 @@
         "description": "Name of the S3 bucket files are stored in."
       }
     ],
+    "contract": {
+      "type": "openapi",
+      "path": "openapi.yaml",
+      "origin": "provider"
+    },
     "consumptionInstructions": "A consuming service generates presigned URLs server-side with the AWS SDK — a PutObject presigned URL when a file needs to be uploaded, a GetObject presigned URL when a file needs to be viewed or downloaded — and returns only that URL to the browser, which performs the upload/download directly against S3. Never route file bytes through the application backend, and never hand the browser a long-lived credential: only the service holds the AWS access key and secret, and every presigned URL is scoped to one object key with a short expiry (a few minutes for uploads, longer for read-only viewing links as needed). Object keys should be namespaced per project/tenant to avoid collisions, and the bucket should have public access blocked — the presigned URL is what authorizes each individual request."
+  },
+  "provenance": {
+    "sourceUrl": "https://api.apis.guru/v2/specs/amazonaws.com/s3/2006-03-01/openapi.json",
+    "sha256": "1503e59f693ab475b165ab210a3f330fbeceff42e6edf5e9eda02eefa3a23e8c",
+    "readOn": "2026-09-20T14:27:05Z"
   }
 }
