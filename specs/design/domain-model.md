@@ -76,3 +76,4 @@ change against a correspondence item.
 required before an item can be closed.
 - **Notification** records an assignment or overdue alert sent to a user on
 one of the three channels.
+
