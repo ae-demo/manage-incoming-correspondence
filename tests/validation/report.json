@@ -1,0 +1,746 @@
+{
+  "schemaVersion": 1,
+  "issue": 17,
+  "commit": "fe264bd229b68a9f640c7c16ed759a1320055578",
+  "generatedAt": "2026-09-21T11:16:38.661Z",
+  "playwrightVersion": "1.61.1",
+  "batches": [
+    {
+      "file": "2026-09-21T10-09-29-149Z.json",
+      "specs": 1
+    },
+    {
+      "file": "2026-09-21T10-10-48-103Z.json",
+      "specs": 1
+    },
+    {
+      "file": "2026-09-21T10-10-59-866Z.json",
+      "specs": 1
+    },
+    {
+      "file": "2026-09-21T10-11-12-187Z.json",
+      "specs": 4
+    },
+    {
+      "file": "2026-09-21T10-12-45-072Z.json",
+      "specs": 5
+    },
+    {
+      "file": "2026-09-21T10-15-30-660Z.json",
+      "specs": 3
+    },
+    {
+      "file": "2026-09-21T10-16-24-146Z.json",
+      "specs": 1
+    },
+    {
+      "file": "2026-09-21T10-16-40-858Z.json",
+      "specs": 1
+    },
+    {
+      "file": "2026-09-21T10-16-58-456Z.json",
+      "specs": 4
+    },
+    {
+      "file": "2026-09-21T10-18-05-323Z.json",
+      "specs": 4
+    },
+    {
+      "file": "2026-09-21T10-19-29-136Z.json",
+      "specs": 5
+    },
+    {
+      "file": "2026-09-21T10-22-05-364Z.json",
+      "specs": 2
+    },
+    {
+      "file": "2026-09-21T10-23-17-662Z.json",
+      "specs": 1
+    },
+    {
+      "file": "2026-09-21T10-24-19-216Z.json",
+      "specs": 1
+    },
+    {
+      "file": "2026-09-21T10-24-55-569Z.json",
+      "specs": 2
+    },
+    {
+      "file": "2026-09-21T10-25-52-667Z.json",
+      "specs": 2
+    },
+    {
+      "file": "2026-09-21T10-26-46-839Z.json",
+      "specs": 5
+    },
+    {
+      "file": "2026-09-21T10-28-16-951Z.json",
+      "specs": 6
+    },
+    {
+      "file": "2026-09-21T10-29-41-338Z.json",
+      "specs": 6
+    },
+    {
+      "file": "2026-09-21T10-30-50-378Z.json",
+      "specs": 1
+    },
+    {
+      "file": "2026-09-21T10-31-07-636Z.json",
+      "specs": 1
+    },
+    {
+      "file": "2026-09-21T10-31-26-298Z.json",
+      "specs": 5
+    },
+    {
+      "file": "2026-09-21T10-34-26-793Z.json",
+      "specs": 2
+    },
+    {
+      "file": "2026-09-21T10-35-01-854Z.json",
+      "specs": 3
+    },
+    {
+      "file": "2026-09-21T10-35-54-931Z.json",
+      "specs": 13
+    },
+    {
+      "file": "2026-09-21T10-42-46-466Z.json",
+      "specs": 1
+    },
+    {
+      "file": "2026-09-21T10-43-19-533Z.json",
+      "specs": 1
+    },
+    {
+      "file": "2026-09-21T10-44-39-334Z.json",
+      "specs": 37
+    },
+    {
+      "file": "2026-09-21T10-57-01-878Z.json",
+      "specs": 4
+    },
+    {
+      "file": "2026-09-21T10-58-09-936Z.json",
+      "specs": 4
+    },
+    {
+      "file": "2026-09-21T10-59-22-557Z.json",
+      "specs": 37
+    },
+    {
+      "file": "2026-09-21T11-15-13-416Z.json",
+      "specs": 2
+    },
+    {
+      "file": "2026-09-21T11-15-54-924Z.json",
+      "specs": 2
+    }
+  ],
+  "totals": {
+    "e2e": {
+      "total": 37,
+      "pass": 26,
+      "fail": 11,
+      "notRun": 0
+    },
+    "manual": 3,
+    "scenario": 0
+  },
+  "criteria": [
+    {
+      "id": "AC-001-a",
+      "requirementId": "REQ-001",
+      "must": "A Registry Officer can create a new correspondence item with sender, category, and a scanned document attachment",
+      "method": "e2e",
+      "status": "fail",
+      "spec": "tests/e2e/specs/AC-001-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 17090,
+      "failure": {
+        "message": "Error: expect(page).toHaveURL(expected) failed\n\nExpected pattern: /\\/inbox$/\nReceived string:  \"https://http-manage-incomi-development-default-b1694cb5.apps.94.72.97.95.sslip.io/log\"\nTimeout: 10000ms\n\nCall log:\n  - Expect \"toHaveURL\" with timeout 10000ms\n    23 × unexpected value \"https://http-manage-incomi-development-default-b1694cb5.apps.94.72.97.95.sslip.io/log\"\n",
+        "location": "AC-001-a.spec.ts:5"
+      },
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-001-b",
+      "requirementId": "REQ-001",
+      "must": "A logged physical item appears in the system immediately after being saved",
+      "method": "e2e",
+      "status": "fail",
+      "spec": "tests/e2e/specs/AC-001-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 19228,
+      "failure": {
+        "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('cell', { name: 'E2E Sender 1789988388839' })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('cell', { name: 'E2E Sender 1789988388839' })\n",
+        "location": "AC-001-b.spec.ts:5"
+      },
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-002-a",
+      "requirementId": "REQ-002",
+      "must": "An email received at a configured intake mailbox results in a new correspondence item logged automatically, without manual entry",
+      "method": "manual",
+      "status": "manual",
+      "spec": null,
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 0,
+      "failure": null,
+      "batch": null
+    },
+    {
+      "id": "AC-003-a",
+      "requirementId": "REQ-003",
+      "must": "A Registry Officer can view a list of newly logged, unrouted correspondence items",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-003-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 8860,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-003-b",
+      "requirementId": "REQ-003",
+      "must": "A Registry Officer can assign a newly logged item to a department",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-003-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 13644,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-003-c",
+      "requirementId": "REQ-003",
+      "must": "After assignment, the item shows the department it was routed to",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-003-c.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 10984,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-004-a",
+      "requirementId": "REQ-004",
+      "must": "A Registry Officer can change the department assigned to an already-routed correspondence item",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-004-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 12546,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-005-a",
+      "requirementId": "REQ-005",
+      "must": "A Department Officer can view a list of correspondence items currently assigned to their own department",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-005-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 16750,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-005-b",
+      "requirementId": "REQ-005",
+      "must": "A Department Officer does not see correspondence assigned to a different department in that list",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-005-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 16023,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-006-a",
+      "requirementId": "REQ-006",
+      "must": "A Department Officer can change the status of an item assigned to their department (e.g., to in progress)",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-006-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 16882,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-006-b",
+      "requirementId": "REQ-006",
+      "must": "The updated status is visible to other users viewing that item",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-006-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 23103,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-007-a",
+      "requirementId": "REQ-007",
+      "must": "A Department Officer can record a response note and/or an attached response document against a correspondence item",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-007-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 16424,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-007-b",
+      "requirementId": "REQ-007",
+      "must": "The recorded response is retrievable from that correspondence item afterward",
+      "method": "e2e",
+      "status": "fail",
+      "spec": "tests/e2e/specs/AC-007-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 26396,
+      "failure": {
+        "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Resolved per phone call with sender on the record.')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText('Resolved per phone call with sender on the record.')\n",
+        "location": "AC-007-b.spec.ts:6"
+      },
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-008-a",
+      "requirementId": "REQ-008",
+      "must": "A Department Officer can close a correspondence item that has a recorded response",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-008-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 16870,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-008-b",
+      "requirementId": "REQ-008",
+      "must": "A closed item no longer appears in the active/open queue",
+      "method": "e2e",
+      "status": "fail",
+      "spec": "tests/e2e/specs/AC-008-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 26977,
+      "failure": {
+        "message": "Error: expect(locator).not.toBeVisible() failed\n\nLocator:  getByRole('cell', { name: 'E2E QueueClose Sender 1789988598149' })\nExpected: not visible\nReceived: visible\nTimeout:  10000ms\n\nCall log:\n  - Expect \"not toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('cell', { name: 'E2E QueueClose Sender 1789988598149' })\n    24 × locator resolved to <td class=\"MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1man376\">E2E QueueClose Sender 1789988598149</td>\n       - unexpected value \"visible\"\n",
+        "location": "AC-008-b.spec.ts:6"
+      },
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-008-c",
+      "requirementId": "REQ-008",
+      "must": "An item with no recorded response cannot be closed",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-008-c.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 19413,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-009-a",
+      "requirementId": "REQ-009",
+      "must": "A Supervisor can view a dashboard listing correspondence items from every department",
+      "method": "e2e",
+      "status": "fail",
+      "spec": "tests/e2e/specs/AC-009-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 29518,
+      "failure": {
+        "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('cell', { name: 'E2E Dash Sender A 1789988649943' })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('cell', { name: 'E2E Dash Sender A 1789988649943' })\n",
+        "location": "AC-009-a.spec.ts:6"
+      },
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-009-b",
+      "requirementId": "REQ-009",
+      "must": "Each item on the dashboard shows its current status",
+      "method": "e2e",
+      "status": "fail",
+      "spec": "tests/e2e/specs/AC-009-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 27915,
+      "failure": {
+        "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('row', { name: /E2E DashStatus Sender 1789988680944.*Routed/ })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('row', { name: /E2E DashStatus Sender 1789988680944.*Routed/ })\n",
+        "location": "AC-009-b.spec.ts:6"
+      },
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-010-a",
+      "requirementId": "REQ-010",
+      "must": "An item past its due date is visibly flagged as overdue to the Supervisor",
+      "method": "e2e",
+      "status": "fail",
+      "spec": "tests/e2e/specs/AC-010-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 29952,
+      "failure": {
+        "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('row', { name: /E2E Overdue Sender 1789988712738.*Yes/ })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('row', { name: /E2E Overdue Sender 1789988712738.*Yes/ })\n",
+        "location": "AC-010-a.spec.ts:6"
+      },
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-010-b",
+      "requirementId": "REQ-010",
+      "must": "An item not yet past its due date is not flagged as overdue",
+      "method": "e2e",
+      "status": "fail",
+      "spec": "tests/e2e/specs/AC-010-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 28895,
+      "failure": {
+        "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('row', { name: /E2E NotOverdue Sender 1789988745978.*No/ })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('row', { name: /E2E NotOverdue Sender 1789988745978.*No/ })\n",
+        "location": "AC-010-b.spec.ts:6"
+      },
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-011-a",
+      "requirementId": "REQ-011",
+      "must": "A Supervisor can reassign a correspondence item to a different department",
+      "method": "e2e",
+      "status": "fail",
+      "spec": "tests/e2e/specs/AC-011-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 90436,
+      "failure": {
+        "message": "Test timeout of 90000ms exceeded.",
+        "location": "AC-011-a.spec.ts:6"
+      },
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-012-a",
+      "requirementId": "REQ-012",
+      "must": "A Registry Officer or Supervisor can filter correspondence by sender",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-012-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 5977,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-012-b",
+      "requirementId": "REQ-012",
+      "must": "A Registry Officer or Supervisor can filter correspondence by department",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-012-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 11685,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-012-c",
+      "requirementId": "REQ-012",
+      "must": "A Registry Officer or Supervisor can filter correspondence by status",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-012-c.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 22013,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-012-d",
+      "requirementId": "REQ-012",
+      "must": "A Registry Officer or Supervisor can filter correspondence by date",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-012-d.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 5148,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-013-a",
+      "requirementId": "REQ-013",
+      "must": "A correspondence item's movement history lists who it was routed to and when",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-013-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 9938,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-013-b",
+      "requirementId": "REQ-013",
+      "must": "A correspondence item's movement history lists the actions taken on it",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-013-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 22588,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-014-a",
+      "requirementId": "REQ-014",
+      "must": "A Department Officer receives a notification when a correspondence item is newly assigned to them",
+      "method": "manual",
+      "status": "manual",
+      "spec": null,
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 0,
+      "failure": null,
+      "batch": null
+    },
+    {
+      "id": "AC-015-a",
+      "requirementId": "REQ-015",
+      "must": "An Admin can create a new department",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-015-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 6296,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-015-b",
+      "requirementId": "REQ-015",
+      "must": "An Admin can rename an existing department",
+      "method": "e2e",
+      "status": "fail",
+      "spec": "tests/e2e/specs/AC-015-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 90527,
+      "failure": {
+        "message": "Test timeout of 90000ms exceeded.",
+        "location": "AC-015-b.spec.ts:6"
+      },
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-015-c",
+      "requirementId": "REQ-015",
+      "must": "An Admin can deactivate a department",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-015-c.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 7295,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-015-d",
+      "requirementId": "REQ-015",
+      "must": "A deactivated department is no longer available as a routing option for new or reassigned items",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-015-d.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 10999,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-016-a",
+      "requirementId": "REQ-016",
+      "must": "An Admin can assign a user to a department and one of the three roles",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-016-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 7739,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-016-b",
+      "requirementId": "REQ-016",
+      "must": "After onboarding, the user can access the correspondence relevant to their assigned role and department",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-016-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 15966,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-017-a",
+      "requirementId": "REQ-017",
+      "must": "The SLA performance dashboard is reachable without signing in",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-017-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 863,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-017-b",
+      "requirementId": "REQ-017",
+      "must": "The dashboard shows SLA/turnaround performance broken down per department",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-017-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 16745,
+      "failure": null,
+      "batch": "2026-09-21T11-15-54-924Z.json"
+    },
+    {
+      "id": "AC-017-c",
+      "requirementId": "REQ-017",
+      "must": "The dashboard does not display individual correspondence content, sender details, or the status of a specific item",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-017-c.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 15987,
+      "failure": null,
+      "batch": "2026-09-21T11-15-54-924Z.json"
+    },
+    {
+      "id": "AC-018-a",
+      "requirementId": "REQ-018",
+      "must": "An Admin can configure an organization-wide default intake mailbox",
+      "method": "e2e",
+      "status": "fail",
+      "spec": "tests/e2e/specs/AC-018-a.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 46365,
+      "failure": {
+        "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('button', { name: /organization.*mailbox/i })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('button', { name: /organization.*mailbox/i })\n",
+        "location": "AC-018-a.spec.ts:5"
+      },
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-018-b",
+      "requirementId": "REQ-018",
+      "must": "An Admin can configure a separate intake mailbox for an individual department",
+      "method": "e2e",
+      "status": "pass",
+      "spec": "tests/e2e/specs/AC-018-b.spec.ts",
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 6536,
+      "failure": null,
+      "batch": "2026-09-21T10-59-22-557Z.json"
+    },
+    {
+      "id": "AC-018-c",
+      "requirementId": "REQ-018",
+      "must": "Email received at a department's own configured mailbox is captured as correspondence for that department",
+      "method": "manual",
+      "status": "manual",
+      "spec": null,
+      "healed": false,
+      "healAttempts": 0,
+      "flaky": false,
+      "durationMs": 0,
+      "failure": null,
+      "batch": null
+    }
+  ]
+}
