@@ -1,0 +1,8 @@
+{
+  "targets": {
+    "correspondence-api": "https://development-default.apps.94.72.97.95.sslip.io:443/manage-incoming-correspondence-correspondence-api-http",
+    "correspondence-web": "https://http-manage-incomi-development-default-b1694cb5.apps.94.72.97.95.sslip.io:443/",
+    "public-sla-dashboard": "https://http-manage-incomi-development-default-c8ca7199.apps.94.72.97.95.sslip.io:443/"
+  },
+  "primary": "correspondence-web"
+}
