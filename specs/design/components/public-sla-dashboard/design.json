@@ -7,10 +7,29 @@
   "appPath": "public-sla-dashboard",
   "entrypoint": "deployment/web-application",
   "exposure": "internet",
-  "dependencies": [
-    { "kind": "component", "name": "correspondence-api" }
+  "stories": [
+    17
   ],
   "description": "A public, unauthenticated single page showing each department's aggregate SLA/turnaround performance (average, best, worst response time over the trailing 3 months). Never shows individual correspondence content, sender details or item status; carries no sign-in.",
-  "stories": [17],
-  "skillsPinned": ["wireframes", "react-webapp", "oxygen-ui-design-system"]
+  "dependencies": [
+    {
+      "kind": "component",
+      "name": "correspondence-api",
+      "wiring": {
+        "endpoint": {
+          "component": "manage-incoming-correspondence-correspondence-api",
+          "name": "http",
+          "visibility": "project",
+          "envBindings": {
+            "address": "CORRESPONDENCE_API_URL"
+          }
+        }
+      }
+    }
+  ],
+  "skillsPinned": [
+    "wireframes",
+    "react-webapp",
+    "oxygen-ui-design-system"
+  ]
 }

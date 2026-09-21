@@ -32,34 +32,85 @@
     {
       "kind": "platform-resource",
       "name": "correspondence-db",
-      "resourceType": "postgres-cnpg"
+      "resourceType": "postgres-cnpg",
+      "wiring": {
+        "ref": "manage-incoming-c-64b61660",
+        "envBindings": {
+          "dbname": "CORRESPONDENCE_DB_DBNAME",
+          "host": "CORRESPONDENCE_DB_HOST",
+          "password": "CORRESPONDENCE_DB_PASSWORD",
+          "port": "CORRESPONDENCE_DB_PORT",
+          "user": "CORRESPONDENCE_DB_USER"
+        }
+      }
     },
     {
       "kind": "platform-resource",
       "name": "correspondence-auth",
-      "resourceType": "thunder-app"
+      "resourceType": "thunder-app",
+      "wiring": {
+        "ref": "manage-incoming-c-ddf821f8",
+        "envBindings": {
+          "client_id": "CORRESPONDENCE_AUTH_CLIENT_ID",
+          "issuer": "CORRESPONDENCE_AUTH_ISSUER",
+          "jwks_url": "CORRESPONDENCE_AUTH_JWKS_URL",
+          "resource": "CORRESPONDENCE_AUTH_RESOURCE",
+          "scopes": "CORRESPONDENCE_AUTH_SCOPES"
+        }
+      }
     },
     {
       "kind": "external",
       "name": "aws-s3",
-      "description": "Generates presigned URLs for scanned copies and response attachments; files never pass through this service."
+      "description": "Generates presigned URLs for scanned copies and response attachments; files never pass through this service.",
+      "wiring": {
+        "ref": "manage-incoming-c-ba6ee5ef",
+        "envBindings": {
+          "AWS_ACCESS_KEY_ID": "AWS_ACCESS_KEY_ID",
+          "AWS_REGION": "AWS_REGION",
+          "AWS_SECRET_ACCESS_KEY": "AWS_SECRET_ACCESS_KEY",
+          "S3_BUCKET_NAME": "S3_BUCKET_NAME"
+        }
+      }
     },
     {
       "kind": "external",
       "name": "email-service",
-      "description": "Sends assignment and overdue-alert emails."
+      "description": "Sends assignment and overdue-alert emails.",
+      "wiring": {
+        "ref": "manage-incoming-c-fd59f645",
+        "envBindings": {
+          "EMAIL_SERVICE_BASE_URL": "EMAIL_SERVICE_BASE_URL"
+        }
+      }
     },
     {
       "kind": "external",
       "name": "sms-service",
-      "description": "Sends assignment and overdue-alert SMS to the phone number on the user's Thunder profile."
+      "description": "Sends assignment and overdue-alert SMS to the phone number on the user's Thunder profile.",
+      "wiring": {
+        "ref": "manage-incoming-c-a44a9b14",
+        "envBindings": {
+          "SMS_SERVICE_URL": "SMS_SERVICE_URL"
+        }
+      }
     },
     {
       "kind": "external",
       "name": "email-intake",
-      "description": "Polls each department's (or the organization default) Gmail mailbox via domain-wide-delegated service-account access and logs new mail as correspondence automatically."
+      "description": "Polls each department's (or the organization default) Gmail mailbox via domain-wide-delegated service-account access and logs new mail as correspondence automatically.",
+      "wiring": {
+        "ref": "manage-incoming-c-a2a721f2",
+        "envBindings": {
+          "GMAIL_SERVICE_ACCOUNT_JSON": "GMAIL_SERVICE_ACCOUNT_JSON",
+          "GMAIL_WORKSPACE_DOMAIN": "GMAIL_WORKSPACE_DOMAIN"
+        }
+      }
     }
   ],
+  "exposesAPI": {
+    "auth": "end-user-required"
+  },
   "skillsPinned": [
     "openapi-conventions",
     "ballerina",
