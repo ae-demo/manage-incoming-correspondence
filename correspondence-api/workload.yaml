@@ -1,0 +1,46 @@
+apiVersion: openchoreo.dev/v1alpha1
+metadata:
+  name: correspondence-api
+
+endpoints:
+  - name: http
+    type: HTTP
+    port: 9090
+    basePath: /
+    visibility:
+      - project
+      - internal
+      - external
+
+dependencies:
+  resources:
+    - ref: manage-incoming-c-64b61660
+      envBindings:
+        dbname: CORRESPONDENCE_DB_DBNAME
+        host: CORRESPONDENCE_DB_HOST
+        password: CORRESPONDENCE_DB_PASSWORD
+        port: CORRESPONDENCE_DB_PORT
+        user: CORRESPONDENCE_DB_USER
+    - ref: manage-incoming-c-ddf821f8
+      envBindings:
+        client_id: CORRESPONDENCE_AUTH_CLIENT_ID
+        issuer: CORRESPONDENCE_AUTH_ISSUER
+        jwks_url: CORRESPONDENCE_AUTH_JWKS_URL
+        resource: CORRESPONDENCE_AUTH_RESOURCE
+        scopes: CORRESPONDENCE_AUTH_SCOPES
+    - ref: manage-incoming-c-ba6ee5ef
+      envBindings:
+        AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+        AWS_REGION: AWS_REGION
+        AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+        S3_BUCKET_NAME: S3_BUCKET_NAME
+    - ref: manage-incoming-c-fd59f645
+      envBindings:
+        EMAIL_SERVICE_BASE_URL: EMAIL_SERVICE_BASE_URL
+    - ref: manage-incoming-c-a44a9b14
+      envBindings:
+        SMS_SERVICE_URL: SMS_SERVICE_URL
+    - ref: manage-incoming-c-a2a721f2
+      envBindings:
+        GMAIL_SERVICE_ACCOUNT_JSON: GMAIL_SERVICE_ACCOUNT_JSON
+        GMAIL_WORKSPACE_DOMAIN: GMAIL_WORKSPACE_DOMAIN
