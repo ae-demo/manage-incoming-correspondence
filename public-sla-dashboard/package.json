@@ -1,0 +1,31 @@
+{
+  "name": "public-sla-dashboard",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:mock": "vite --mode mock",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@wso2/oxygen-ui": "^0.13.1",
+    "@wso2/oxygen-ui-icons-react": "^0.13.1",
+    "openapi-fetch": "^0.17.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.3.4",
+    "msw": "^2.6.6",
+    "openapi-typescript": "^7.4.4",
+    "typescript": "^5.6.2",
+    "vite": "^6.0.1",
+    "yaml": "^2.6.1"
+  }
+}

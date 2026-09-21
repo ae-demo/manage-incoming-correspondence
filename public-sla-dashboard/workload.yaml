@@ -1,0 +1,20 @@
+apiVersion: openchoreo.dev/v1alpha1
+metadata:
+  name: public-sla-dashboard
+
+endpoints:
+  - name: http
+    type: HTTP
+    port: 9090
+    basePath: /
+    visibility:
+      - project
+      - external
+
+dependencies:
+  endpoints:
+    - component: manage-incoming-correspondence-correspondence-api
+      name: http
+      visibility: project
+      envBindings:
+        address: CORRESPONDENCE_API_URL
