@@ -9,6 +9,6 @@ replay_pid*.log
 /public-sla-dashboard/node_modules/
 /public-sla-dashboard/dist/
 
-# correspondence-webapp — build output, made by npm install / npm run build
-/correspondence-webapp/node_modules/
-/correspondence-webapp/dist/
+# correspondence-web — build output, made by npm install / npm run build
+/correspondence-web/node_modules/
+/correspondence-web/dist/

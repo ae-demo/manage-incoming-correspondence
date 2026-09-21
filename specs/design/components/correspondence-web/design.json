@@ -1,10 +1,10 @@
 {
-  "name": "correspondence-webapp",
+  "name": "correspondence-web",
   "type": "web-application",
   "version": "0.1.0",
   "language": "TypeScript",
   "buildpack": "docker",
-  "appPath": "correspondence-webapp",
+  "appPath": "correspondence-web",
   "entrypoint": "deployment/web-application",
   "exposure": "internet",
   "stories": [

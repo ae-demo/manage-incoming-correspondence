@@ -6,22 +6,22 @@ intake mailbox — and onboards users into a department and role.
 ```mermaid
 sequenceDiagram
     actor Admin
-    participant correspondencewebapp as correspondence-webapp
+    participant correspondenceweb as correspondence-web
     participant correspondenceapi as correspondence-api
 
-    Admin->>correspondencewebapp: create department
-    correspondencewebapp->>correspondenceapi: create department
-    Admin->>correspondencewebapp: configure department mailbox
-    correspondencewebapp->>correspondenceapi: set mailbox config
+    Admin->>correspondenceweb: create department
+    correspondenceweb->>correspondenceapi: create department
+    Admin->>correspondenceweb: configure department mailbox
+    correspondenceweb->>correspondenceapi: set mailbox config
 
-    Admin->>correspondencewebapp: onboard user
-    correspondencewebapp->>correspondenceapi: assign user to department + role
-    correspondenceapi-->>correspondencewebapp: onboarded
+    Admin->>correspondenceweb: onboard user
+    correspondenceweb->>correspondenceapi: assign user to department + role
+    correspondenceapi-->>correspondenceweb: onboarded
 
     alt department deactivated
-        Admin->>correspondencewebapp: deactivate department
-        correspondencewebapp->>correspondenceapi: deactivate department
-        correspondenceapi-->>correspondencewebapp: removed from routing options
+        Admin->>correspondenceweb: deactivate department
+        correspondenceweb->>correspondenceapi: deactivate department
+        correspondenceapi-->>correspondenceweb: removed from routing options
     end
 ```
 

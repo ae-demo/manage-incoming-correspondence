@@ -1,6 +1,6 @@
 apiVersion: openchoreo.dev/v1alpha1
 metadata:
-  name: correspondence-webapp
+  name: correspondence-web
 
 endpoints:
   - name: http
