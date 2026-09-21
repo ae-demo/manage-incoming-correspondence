@@ -31,3 +31,4 @@ sequenceDiagram
         correspondenceapi-->>correspondencewebapp: refused (response required)
     end
 ```
+
