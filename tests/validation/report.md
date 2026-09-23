@@ -1,15 +1,15 @@
 # Validation report
 
 - **Issue:** #17
-- **Commit:** fe264bd229b68a9f640c7c16ed759a1320055578
-- **Generated:** 2026-09-21T11:16:38.661Z
+- **Commit:** 9797e25fb1e02313a21ff19ce1d3d8c949b276de
+- **Generated:** 2026-09-23T11:52:36.588Z
 - **Playwright:** 1.61.1
 
 ## Summary
 
 | Method | Total | Pass | Fail | Not run |
 |---|---|---|---|---|
-| e2e | 37 | 26 | 11 | 0 |
+| e2e | 37 | 28 | 9 | 0 |
 | manual (human checklist) | 3 | — | — | — |
 | scenario (not validated) | 0 | — | — | — |
 
@@ -20,9 +20,9 @@
 | AC-001-a | A Registry Officer can create a new correspondence item with sender, category, and a scanned document attachment | ❌ fail | `tests/e2e/specs/AC-001-a.spec.ts` | — |
 | AC-001-b | A logged physical item appears in the system immediately after being saved | ❌ fail | `tests/e2e/specs/AC-001-b.spec.ts` | — |
 | AC-003-a | A Registry Officer can view a list of newly logged, unrouted correspondence items | ✅ pass | `tests/e2e/specs/AC-003-a.spec.ts` | — |
-| AC-003-b | A Registry Officer can assign a newly logged item to a department | ✅ pass | `tests/e2e/specs/AC-003-b.spec.ts` | — |
+| AC-003-b | A Registry Officer can assign a newly logged item to a department | ❌ fail | `tests/e2e/specs/AC-003-b.spec.ts` | — |
 | AC-003-c | After assignment, the item shows the department it was routed to | ✅ pass | `tests/e2e/specs/AC-003-c.spec.ts` | — |
-| AC-004-a | A Registry Officer can change the department assigned to an already-routed correspondence item | ✅ pass | `tests/e2e/specs/AC-004-a.spec.ts` | — |
+| AC-004-a | A Registry Officer can change the department assigned to an already-routed correspondence item | ❌ fail | `tests/e2e/specs/AC-004-a.spec.ts` | — |
 | AC-005-a | A Department Officer can view a list of correspondence items currently assigned to their own department | ✅ pass | `tests/e2e/specs/AC-005-a.spec.ts` | — |
 | AC-005-b | A Department Officer does not see correspondence assigned to a different department in that list | ✅ pass | `tests/e2e/specs/AC-005-b.spec.ts` | — |
 | AC-006-a | A Department Officer can change the status of an item assigned to their department (e.g., to in progress) | ✅ pass | `tests/e2e/specs/AC-006-a.spec.ts` | — |
@@ -32,10 +32,10 @@
 | AC-008-a | A Department Officer can close a correspondence item that has a recorded response | ✅ pass | `tests/e2e/specs/AC-008-a.spec.ts` | — |
 | AC-008-b | A closed item no longer appears in the active/open queue | ❌ fail | `tests/e2e/specs/AC-008-b.spec.ts` | — |
 | AC-008-c | An item with no recorded response cannot be closed | ✅ pass | `tests/e2e/specs/AC-008-c.spec.ts` | — |
-| AC-009-a | A Supervisor can view a dashboard listing correspondence items from every department | ❌ fail | `tests/e2e/specs/AC-009-a.spec.ts` | — |
-| AC-009-b | Each item on the dashboard shows its current status | ❌ fail | `tests/e2e/specs/AC-009-b.spec.ts` | — |
-| AC-010-a | An item past its due date is visibly flagged as overdue to the Supervisor | ❌ fail | `tests/e2e/specs/AC-010-a.spec.ts` | — |
-| AC-010-b | An item not yet past its due date is not flagged as overdue | ❌ fail | `tests/e2e/specs/AC-010-b.spec.ts` | — |
+| AC-009-a | A Supervisor can view a dashboard listing correspondence items from every department | ✅ pass | `tests/e2e/specs/AC-009-a.spec.ts` | — |
+| AC-009-b | Each item on the dashboard shows its current status | ✅ pass | `tests/e2e/specs/AC-009-b.spec.ts` | — |
+| AC-010-a | An item past its due date is visibly flagged as overdue to the Supervisor | ✅ pass | `tests/e2e/specs/AC-010-a.spec.ts` | — |
+| AC-010-b | An item not yet past its due date is not flagged as overdue | ✅ pass | `tests/e2e/specs/AC-010-b.spec.ts` | — |
 | AC-011-a | A Supervisor can reassign a correspondence item to a different department | ❌ fail | `tests/e2e/specs/AC-011-a.spec.ts` | — |
 | AC-012-a | A Registry Officer or Supervisor can filter correspondence by sender | ✅ pass | `tests/e2e/specs/AC-012-a.spec.ts` | — |
 | AC-012-b | A Registry Officer or Supervisor can filter correspondence by department | ✅ pass | `tests/e2e/specs/AC-012-b.spec.ts` | — |
@@ -83,15 +83,33 @@ Location: `AC-001-b.spec.ts:5`
 ```
 Error: expect(locator).toBeVisible() failed
 
-Locator: getByRole('cell', { name: 'E2E Sender 1789988388839' })
+Locator: getByRole('cell', { name: 'E2E Sender 1790162889722' })
 Expected: visible
 Timeout: 10000ms
 Error: element(s) not found
 
 Call log:
   - Expect "toBeVisible" with timeout 10000ms
-  - waiting for getByRole('cell', { name: 'E2E Sender 1789988388839' })
+  - waiting for getByRole('cell', { name: 'E2E Sender 1790162889722' })
 
+```
+
+### AC-003-b — A Registry Officer can assign a newly logged item to a department
+
+Spec: `tests/e2e/specs/AC-003-b.spec.ts`
+Location: `AC-003-b.spec.ts:6`
+
+```
+Test timeout of 90000ms exceeded.
+```
+
+### AC-004-a — A Registry Officer can change the department assigned to an already-routed correspondence item
+
+Spec: `tests/e2e/specs/AC-004-a.spec.ts`
+Location: `AC-004-a.spec.ts:6`
+
+```
+Test timeout of 90000ms exceeded.
 ```
 
 ### AC-007-b — The recorded response is retrievable from that correspondence item afterward
@@ -121,92 +139,16 @@ Location: `AC-008-b.spec.ts:6`
 ```
 Error: expect(locator).not.toBeVisible() failed
 
-Locator:  getByRole('cell', { name: 'E2E QueueClose Sender 1789988598149' })
+Locator:  getByRole('cell', { name: 'E2E QueueClose Sender 1790163373098' })
 Expected: not visible
 Received: visible
 Timeout:  10000ms
 
 Call log:
   - Expect "not toBeVisible" with timeout 10000ms
-  - waiting for getByRole('cell', { name: 'E2E QueueClose Sender 1789988598149' })
-    24 × locator resolved to <td class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1man376">E2E QueueClose Sender 1789988598149</td>
+  - waiting for getByRole('cell', { name: 'E2E QueueClose Sender 1790163373098' })
+    24 × locator resolved to <td class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1man376">E2E QueueClose Sender 1790163373098</td>
        - unexpected value "visible"
-
-```
-
-### AC-009-a — A Supervisor can view a dashboard listing correspondence items from every department
-
-Spec: `tests/e2e/specs/AC-009-a.spec.ts`
-Location: `AC-009-a.spec.ts:6`
-
-```
-Error: expect(locator).toBeVisible() failed
-
-Locator: getByRole('cell', { name: 'E2E Dash Sender A 1789988649943' })
-Expected: visible
-Timeout: 10000ms
-Error: element(s) not found
-
-Call log:
-  - Expect "toBeVisible" with timeout 10000ms
-  - waiting for getByRole('cell', { name: 'E2E Dash Sender A 1789988649943' })
-
-```
-
-### AC-009-b — Each item on the dashboard shows its current status
-
-Spec: `tests/e2e/specs/AC-009-b.spec.ts`
-Location: `AC-009-b.spec.ts:6`
-
-```
-Error: expect(locator).toBeVisible() failed
-
-Locator: getByRole('row', { name: /E2E DashStatus Sender 1789988680944.*Routed/ })
-Expected: visible
-Timeout: 10000ms
-Error: element(s) not found
-
-Call log:
-  - Expect "toBeVisible" with timeout 10000ms
-  - waiting for getByRole('row', { name: /E2E DashStatus Sender 1789988680944.*Routed/ })
-
-```
-
-### AC-010-a — An item past its due date is visibly flagged as overdue to the Supervisor
-
-Spec: `tests/e2e/specs/AC-010-a.spec.ts`
-Location: `AC-010-a.spec.ts:6`
-
-```
-Error: expect(locator).toBeVisible() failed
-
-Locator: getByRole('row', { name: /E2E Overdue Sender 1789988712738.*Yes/ })
-Expected: visible
-Timeout: 10000ms
-Error: element(s) not found
-
-Call log:
-  - Expect "toBeVisible" with timeout 10000ms
-  - waiting for getByRole('row', { name: /E2E Overdue Sender 1789988712738.*Yes/ })
-
-```
-
-### AC-010-b — An item not yet past its due date is not flagged as overdue
-
-Spec: `tests/e2e/specs/AC-010-b.spec.ts`
-Location: `AC-010-b.spec.ts:6`
-
-```
-Error: expect(locator).toBeVisible() failed
-
-Locator: getByRole('row', { name: /E2E NotOverdue Sender 1789988745978.*No/ })
-Expected: visible
-Timeout: 10000ms
-Error: element(s) not found
-
-Call log:
-  - Expect "toBeVisible" with timeout 10000ms
-  - waiting for getByRole('row', { name: /E2E NotOverdue Sender 1789988745978.*No/ })
 
 ```
 
