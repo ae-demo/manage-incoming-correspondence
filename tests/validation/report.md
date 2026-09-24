@@ -1,15 +1,15 @@
 # Validation report
 
 - **Issue:** #17
-- **Commit:** 9797e25fb1e02313a21ff19ce1d3d8c949b276de
-- **Generated:** 2026-09-23T11:52:36.588Z
+- **Commit:** 557eca4018574b2d5869d6cf6f969960eaf55514
+- **Generated:** 2026-09-24T12:37:46.993Z
 - **Playwright:** 1.61.1
 
 ## Summary
 
 | Method | Total | Pass | Fail | Not run |
 |---|---|---|---|---|
-| e2e | 37 | 28 | 9 | 0 |
+| e2e | 37 | 26 | 11 | 0 |
 | manual (human checklist) | 3 | — | — | — |
 | scenario (not validated) | 0 | — | — | — |
 
@@ -40,14 +40,14 @@
 | AC-012-a | A Registry Officer or Supervisor can filter correspondence by sender | ✅ pass | `tests/e2e/specs/AC-012-a.spec.ts` | — |
 | AC-012-b | A Registry Officer or Supervisor can filter correspondence by department | ✅ pass | `tests/e2e/specs/AC-012-b.spec.ts` | — |
 | AC-012-c | A Registry Officer or Supervisor can filter correspondence by status | ✅ pass | `tests/e2e/specs/AC-012-c.spec.ts` | — |
-| AC-012-d | A Registry Officer or Supervisor can filter correspondence by date | ✅ pass | `tests/e2e/specs/AC-012-d.spec.ts` | — |
+| AC-012-d | A Registry Officer or Supervisor can filter correspondence by date | ✅ pass | `tests/e2e/specs/AC-012-d.spec.ts` | healed ×1 |
 | AC-013-a | A correspondence item's movement history lists who it was routed to and when | ✅ pass | `tests/e2e/specs/AC-013-a.spec.ts` | — |
 | AC-013-b | A correspondence item's movement history lists the actions taken on it | ✅ pass | `tests/e2e/specs/AC-013-b.spec.ts` | — |
-| AC-015-a | An Admin can create a new department | ✅ pass | `tests/e2e/specs/AC-015-a.spec.ts` | — |
+| AC-015-a | An Admin can create a new department | ❌ fail | `tests/e2e/specs/AC-015-a.spec.ts` | — |
 | AC-015-b | An Admin can rename an existing department | ❌ fail | `tests/e2e/specs/AC-015-b.spec.ts` | — |
 | AC-015-c | An Admin can deactivate a department | ✅ pass | `tests/e2e/specs/AC-015-c.spec.ts` | — |
 | AC-015-d | A deactivated department is no longer available as a routing option for new or reassigned items | ✅ pass | `tests/e2e/specs/AC-015-d.spec.ts` | — |
-| AC-016-a | An Admin can assign a user to a department and one of the three roles | ✅ pass | `tests/e2e/specs/AC-016-a.spec.ts` | — |
+| AC-016-a | An Admin can assign a user to a department and one of the three roles | ❌ fail | `tests/e2e/specs/AC-016-a.spec.ts` | — |
 | AC-016-b | After onboarding, the user can access the correspondence relevant to their assigned role and department | ✅ pass | `tests/e2e/specs/AC-016-b.spec.ts` | — |
 | AC-017-a | The SLA performance dashboard is reachable without signing in | ✅ pass | `tests/e2e/specs/AC-017-a.spec.ts` | — |
 | AC-017-b | The dashboard shows SLA/turnaround performance broken down per department | ✅ pass | `tests/e2e/specs/AC-017-b.spec.ts` | — |
@@ -83,14 +83,14 @@ Location: `AC-001-b.spec.ts:5`
 ```
 Error: expect(locator).toBeVisible() failed
 
-Locator: getByRole('cell', { name: 'E2E Sender 1790162889722' })
+Locator: getByRole('cell', { name: 'E2E Sender 1790252513962' })
 Expected: visible
 Timeout: 10000ms
 Error: element(s) not found
 
 Call log:
   - Expect "toBeVisible" with timeout 10000ms
-  - waiting for getByRole('cell', { name: 'E2E Sender 1790162889722' })
+  - waiting for getByRole('cell', { name: 'E2E Sender 1790252513962' })
 
 ```
 
@@ -139,15 +139,15 @@ Location: `AC-008-b.spec.ts:6`
 ```
 Error: expect(locator).not.toBeVisible() failed
 
-Locator:  getByRole('cell', { name: 'E2E QueueClose Sender 1790163373098' })
+Locator:  getByRole('cell', { name: 'E2E QueueClose Sender 1790252873929' })
 Expected: not visible
 Received: visible
 Timeout:  10000ms
 
 Call log:
   - Expect "not toBeVisible" with timeout 10000ms
-  - waiting for getByRole('cell', { name: 'E2E QueueClose Sender 1790163373098' })
-    24 × locator resolved to <td class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1man376">E2E QueueClose Sender 1790163373098</td>
+  - waiting for getByRole('cell', { name: 'E2E QueueClose Sender 1790252873929' })
+    24 × locator resolved to <td class="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1man376">E2E QueueClose Sender 1790252873929</td>
        - unexpected value "visible"
 
 ```
@@ -161,10 +161,38 @@ Location: `AC-011-a.spec.ts:6`
 Test timeout of 90000ms exceeded.
 ```
 
+### AC-015-a — An Admin can create a new department
+
+Spec: `tests/e2e/specs/AC-015-a.spec.ts`
+Location: `AC-015-a.spec.ts:5`
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByRole('row', { name: /E2E New Dept 1790253145233.*Active/ })
+Expected: visible
+Timeout: 10000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 10000ms
+  - waiting for getByRole('row', { name: /E2E New Dept 1790253145233.*Active/ })
+
+```
+
 ### AC-015-b — An Admin can rename an existing department
 
 Spec: `tests/e2e/specs/AC-015-b.spec.ts`
 Location: `AC-015-b.spec.ts:6`
+
+```
+Test timeout of 90000ms exceeded.
+```
+
+### AC-016-a — An Admin can assign a user to a department and one of the three roles
+
+Spec: `tests/e2e/specs/AC-016-a.spec.ts`
+Location: `AC-016-a.spec.ts:6`
 
 ```
 Test timeout of 90000ms exceeded.
@@ -194,4 +222,10 @@ Call log:
 - [ ] **AC-002-a** — An email received at a configured intake mailbox results in a new correspondence item logged automatically, without manual entry
 - [ ] **AC-014-a** — A Department Officer receives a notification when a correspondence item is newly assigned to them
 - [ ] **AC-018-c** — Email received at a department's own configured mailbox is captured as correspondence for that department
+
+## Healing log
+
+| Criterion | Classification | Change | Commit |
+|---|---|---|---|
+| AC-012-d | data collision | relative 'yesterday' date (broken once test data spans multiple calendar days across repeated validation runs) -> fixed date '2000-01-01' safely before any test data | `557eca40` |
 
