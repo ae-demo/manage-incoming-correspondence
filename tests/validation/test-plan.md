@@ -259,3 +259,45 @@ ticket (issue #11). Findings that shape every section below:
 - AC-002-a — email received at intake mailbox auto-logs a correspondence item.
 - AC-014-a — Department Officer is notified on new assignment.
 - AC-018-c — email at a department's own mailbox is captured for that department.
+
+## Re-validation (issue #17, run of 2026-09-23)
+
+Regression-only run: all 37 e2e criteria already had committed specs, none
+needed authoring. Result: 28/37 passing (up from 26/37 on 2026-09-21).
+
+- **AC-009-a, AC-009-b, AC-010-a, AC-010-b now pass** — previously failed
+  because the Supervisor Dashboard's uncapped, unpaginated `GET
+  /correspondence?limit=50` had been pushed past its cap by this validation
+  suite's own accumulated test data. That data has apparently rotated out
+  (or the cap/sort was fixed) since the 2026-09-21 run; re-verify on the next
+  cycle since the underlying "no pagination" defect noted then was never
+  fixed in the code, only in the data's current shape.
+- **New failures this run, not seen on 2026-09-21: AC-003-b, AC-004-a,
+  AC-011-a, AC-015-b.** Root cause confirmed live: `GET
+  /api/departments?limit=100` (used by every department picker/list in the
+  Admin and routing/reassignment UIs) is alphabetically sorted with a hard
+  100-row cap, and the deployed environment now has 190+ departments
+  accumulated across validation runs (none can be deleted — no delete
+  endpoint exists). A department created by these specs sorts past position
+  100 more often than not, so the picker never shows it and the option/row
+  click times out. This is the same defect class the 2026-09-21 run
+  reported for the Supervisor Dashboard and Admin Departments *screens*
+  (`GET /departments?limit=100`, `GET /correspondence?limit=50` — no
+  pagination) — now also confirmed to break the department *picker*
+  controls used mid-flow (route/reassign/rename dialogs), not just list
+  screens. Confirmed via direct API query: e.g. `E2E Route Dept
+  1790162919269` sorts to index 144 of 190 departments, `E2E Rename Before
+  1790164132277` to index 129 of 192 — both past the 100-row cap.
+- **AC-005-a failed once (full-suite run) then passed on an isolated
+  re-run** with no spec change — live re-drive of the exact sign-in
+  confirmed the app itself works; the first failure was transient
+  contention from running 34 specs sequentially against the same
+  deployment, not a defect. Treated as brittle/transient per
+  `references/healing.md`; no heal needed since nothing in the spec was
+  wrong.
+- **AC-001-a/b, AC-007-b, AC-008-b, AC-018-a re-confirmed still genuinely
+  failing**, same root causes as 2026-09-21 (attachment upload still 500s
+  live — reconfirmed via a fresh manual drive of the Log Physical Item form
+  through playwright-cli; recorded response still not retrievable; closed
+  items still remain in the active queue; no org-wide mailbox admin control
+  exists).
